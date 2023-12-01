@@ -7,7 +7,6 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            /* Remove the background-color property */
             margin: 0;
             display: flex;
             align-items: center;
@@ -18,7 +17,6 @@
         .widget-container {
             text-align: center;
             padding: 5px;
-            /* Remove the background-color property */
             box-shadow: 0 0 2px rgba(0, 0, 0);
             border-radius: 4px;
         }
@@ -40,7 +38,9 @@
         const today = new Date();
         const startOfYear = new Date(today.getFullYear(), 0, 0);
         const days = Math.floor((today - startOfYear) / (24 * 60 * 60 * 1000));
-        const weekNumber = Math.ceil((days + 1) / 7);
+        const currentDayOfWeek = (today.getDay() + 6) % 7; // Make Saturday (day 6) the first day of the week
+        const daysSinceStartOfWeek = days - currentDayOfWeek;
+        const weekNumber = Math.ceil((daysSinceStartOfWeek + 1) / 7);
         return weekNumber;
     }
 
@@ -49,10 +49,8 @@
         document.getElementById('weekNumber').innerText = weekNumber;
     }
 
-    // Update the week number every second
     setInterval(updateWeekNumber, 1000);
 
-    // Initial update
     updateWeekNumber();
 </script>
 
