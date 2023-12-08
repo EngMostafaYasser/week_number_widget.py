@@ -1,58 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Week Number Widget</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
 
-        .widget-container {
-            text-align: center;
-            padding: 5px;
-            box-shadow: 0 0 2px rgba(0, 0, 0);
-            border-radius: 4px;
-        }
+      .widget-container {
+        text-align: center;
+        padding: 5px;
+        box-shadow: 0 0 2px rgba(0, 0, 0);
+        border-radius: 4px;
+      }
 
-        #weekNumber {
-            font-size: 36px;
-            color: #42CCCB;
-        }
+      #weekNumber {
+        font-size: 36px;
+        color: #42cccb;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <div class="widget-container">
+      <p id="weekNumber"></p>
+    </div>
 
-<div class="widget-container">
-    <p id="weekNumber"></p>
-</div>
-
-<script>
-    function getCurrentWeekNumber() {
+    <script>
+      function getCurrentWeekNumber() {
         const today = new Date();
-        const startOfYear = new Date(today.getFullYear(), 0, 0);
-        const days = Math.floor((today - startOfYear) / (24 * 60 * 60 * 1000));
-        const currentDayOfWeek = (today.getDay() + 6) % 7; // Make Saturday (day 6) the first day of the week
-        const daysSinceStartOfWeek = days - currentDayOfWeek;
-        const weekNumber = Math.ceil((daysSinceStartOfWeek + 1) / 7);
+        const firstDayOfYear = new Date(today.getFullYear(), 0, 1);
+        const days = Math.floor(
+          (today - firstDayOfYear) / (24 * 60 * 60 * 1000)
+        );
+        const weekNumber = Math.ceil(
+          (days + 1 + ((firstDayOfYear.getDay() + 1) % 7)) / 7
+        );
         return weekNumber;
-    }
-
-    function updateWeekNumber() {
+      }
+      function updateWeekNumber() {
         const weekNumber = getCurrentWeekNumber();
-        document.getElementById('weekNumber').innerText = weekNumber;
-    }
-
-    setInterval(updateWeekNumber, 1000);
-
-    updateWeekNumber();
-</script>
-
-</body>
+        document.getElementById("weekNumber").innerText = weekNumber;
+      }
+      updateWeekNumber();
+    </script>
+  </body>
 </html>
